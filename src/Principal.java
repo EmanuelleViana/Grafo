@@ -38,6 +38,7 @@ public class Principal {
 				case 1:
 				System.out.println("Quantos vertices tera o grafo?");
 				int v = ler.nextInt();
+
 				g1 = new GrafoM(v,true);
 				System.out.println("Grafo criado com " + v + " vertices.\n");
 
@@ -150,7 +151,7 @@ public class Principal {
 				//Scanner arquivo = new Scanner(System.in);
 			//	String nome = arquivo.nextLine();
 
-				ArrayList<GrafoM> listGraphs = new ArrayList<>();
+				ArrayList<GrafoM> listGraphs;
 				//g1.fromArchive("grafos.txt");
 				listGraphs = g1.fromArchive("grafos.txt");
 				System.out.println("\t" + listGraphs.size() + " lidos do arquivo.");
@@ -174,21 +175,21 @@ public class Principal {
 
 					newOpcao = ler.nextInt();
 					switch (newOpcao) {
-					case 1:
+					case 1: //exibir grafos
 						for (int i = 0; i < listGraphs.size(); i++) {
 							System.out.println("Grafo " + i);
 							listGraphs.get(i).imprime();
 						}
 						g1.pause();
 						break;
-					case 2:
-						System.out.println("Qual dos grafos lidos do arquivo quer selecionar? \"(v1,v2)\"");
+					case 2:	//selecionar grafo
+						System.out.println("Qual dos grafos lidos do arquivo quer selecionar?");
 						v1 = ler.nextInt();
 						g1 = listGraphs.get(v1);
 						g1.pause();
 
 						break;
-					case 3:
+					case 3:	//mostrar selecionado
 						g1.imprime();
 						g1.pause();
 

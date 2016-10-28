@@ -15,9 +15,9 @@ class GrafoM {
 	private int num_vertices;
 	private boolean direcionado;
 
-    int[] tDescoberta ;
-    int[] tTermino ;
-    int[] pais ;
+    private int[] tDescoberta ;
+	private int[] tTermino ;
+	private int[] pais ;
     private String sort ="";
 
     /**
@@ -82,8 +82,8 @@ class GrafoM {
         }
 		return count;
 	}//fim getArestas()
-	
-	int[][]getGrafo(){
+
+	public int[][]getGrafo(){
 		return mGrafo;
 	}
 	
@@ -144,39 +144,52 @@ class GrafoM {
 		int i,j;
 		
 		linha = ler.readLine();
-		
+		System.out.println(linha);
 		while (linha != null) {
-		    //primeira linha fornece numero de vertices
+
+			//primeira linha diz se grafo ou digrafo
+			if (linha.equals("1")) {
+				direcionado = true;
+			}
+			//segunda linha fornece o numero de vertices
+			linha = ler.readLine();
+			System.out.println(linha);
+
 			num_vertices = Integer.parseInt(linha);
-            //cria um novo grafo
-			GrafoM g1 = new GrafoM(num_vertices,true);
+
+			GrafoM g1;
+			if (direcionado){
+				//cria um novo grafo
+				 g1 = new GrafoM(num_vertices,true);
+			}
+			else{
+				 g1 = new GrafoM(num_vertices,false);
+			}
 			listaGrafos.add(g1.clone(g1));
 			for (i = 0; i < this.num_vertices; i++) {
 				linha = ler.readLine();
-
-
-
+				System.out.println(linha);
 				//System.out.println(linha + " Ler uma linha ");
 				j = 0;
-
 				sv = linha.split(",");
 				//System.out.println(Arrays.toString(sv));
-
 				while (j < num_vertices) {
 					//System.out.println("i: " + i + " " + sv[j]);
 					int bit = Integer.parseInt(sv[j]);
 					if(bit > 0){
 						g1.inserirAresta(i,j);
-					//	System.out.println("Adicionarei a aresta("+i+","+j+")");
+						System.out.println("("+i+","+j+")");
 
+						//	System.out.println("Adicionarei a aresta("+i+","+j+")");
 					}
 					j++;
 				}
 			}
 		linha = ler.readLine();
+
 		}
 		  } catch (java.io.FileNotFoundException e) {
-			    System.out.println("ERRO.Nao foi poss�vel abrir o arquivo para leitura");
+			    System.out.println("ERRO.Nao foi possivel abrir o arquivo para leitura");
 			    pause();
 
 			    System.out.println("(Pressione 0 para voltar e abrir outro arquivo)");
@@ -286,7 +299,7 @@ class GrafoM {
 		for (int i = 0; i < num_vertices; i++) {
 			for (int j = 0; j < num_vertices; j++) {
 
-				if (verificarAresta(i, j) != true) {
+				if (verificarAresta(i, j) != true && i != j) {
 					g2.inserirAresta(i, j);
 				}//fim if
 			}//fim for
